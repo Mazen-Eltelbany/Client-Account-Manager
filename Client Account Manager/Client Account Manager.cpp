@@ -18,7 +18,8 @@ const string clientfilename = "cli.txt";
 int random(int from, int to) {
     return rand() % (to - from + 1) + from;
 }
-
+void showtransactionmenu();
+void showmainmenu();
 struct clients {
     string AC;
     string Pin;
@@ -39,7 +40,7 @@ clients readnewclient(string AC) {
     clients cl;
     cl.AC = AC;
     cout << "Enter pin code: ";
-    getline(cin >> ws, cl.Pin);
+    getline(cin>>ws, cl.Pin);
     cout << "Enter name: ";
     getline(cin, cl.name);
     cout << "Enter phone number: ";
@@ -268,6 +269,161 @@ void showallclients(vector<clients> vcl) {
     }
     cout << "----------------------------------------------------------------------------------------------------\n";
 }
+bool depooperation(string AC, double amount, vector<clients>& vcl) {
+    char ans = 'Y';
+    cout << "\n\nAre you sure you want perfrom this transaction?y / n ? ";
+    cin >> ans;
+    if (ans == 'Y' || ans == 'y') {
+        for (clients& c : vcl) {
+            if (c.AC == AC) {
+                c.AB += amount;
+                saveclientdatatofile(clientfilename, vcl);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+}
+void showdeposcreen() {
+    cout << "--------------------------------\n";
+    cout << "\tDeposit menu screen\n";
+    cout << "--------------------------------\n";
+    clients cl;
+    vector<clients>vcl=clientsfromfile(clientfilename);
+    string AC = readclientaccnum();
+    while (!findclientbyaccnum(AC, vcl, cl)) {
+        cout << "\nClient with [" << AC << "] does not exist.\n";
+            AC = readclientaccnum();
+    }
+    showClientlist(cl);
+    double amount = 0;
+    cout << "\nPlease enter deposit amount?";
+    cin >> amount;
+    depooperation(AC, amount, vcl);
+}
+bool withdrawoperation(string AC, double amount, vector<clients>& vcl) {
+    char ans = 'y';
+    cout << "\n\nAre you sure you want perfrom this transaction?y / n ? ";
+    cin >> ans;
+    if (ans == 'Y' || ans == 'y') {
+        for (clients& c : vcl) {
+            if (c.AC == AC) {
+                c.AB -= amount;
+                saveclientdatatofile(clientfilename, vcl);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+void showwithdrawscreen() {
+    cout << "--------------------------------\n";
+    cout << "\tWithDraw menu screen\n";
+    cout << "--------------------------------\n";
+    string AC = readclientaccnum();
+    clients cl;
+    vector<clients>vcl=clientsfromfile(clientfilename);
+    while (!findclientbyaccnum(AC, vcl, cl)) {
+        cout << "\nClient with [" << AC << "] does not exist.\n";
+        AC = readclientaccnum();
+    }
+    double amount = 0;
+    cout << "\nPlease enter With Draw amount?";
+    cin >> amount;
+    while (amount > cl.AB) {
+        cout << "\nAmount Exceeds the balance, you can withdraw up to : " << cl.AB << endl;
+        cout << "Please Enter another amount?";
+        cin >> amount;
+    }
+    withdrawoperation(AC, amount, vcl);
+}
+void showtotalbalancesscreen() {
+    vector<clients>vcl=clientsfromfile(clientfilename);
+    cout << "\n\t\t\t\t\tBalances List(" << vcl.size()<<")Client(s)";
+    cout << "\n_____________________________________________";
+    cout << "______________________________________\n" << endl;
+    cout << '|' << left << setw(15) << "Account Number";
+    cout << "|" << left << setw(40) << "Client Name";
+    cout << "|" << left << setw(12) << "Balance";
+    cout << "\n_____________________________________________";
+    cout << "______________________________________\n" << endl;
+    double tot = 0;
+    if (vcl.size() == 0) {
+        cout << "\t\t\t\tNo Clients Available In the System!";
+    }
+    else {
+        for (clients& c : vcl) {
+            printclientrec(c);
+            tot += c.AB;
+            cout << endl;
+        }
+        cout <<
+            "\n_______________________________________________________";
+        cout << "_________________________________________\n" << endl;
+        cout << "\t\t\t\t\t Total Balances = " <<tot;
+    }
+
+
+
+}
+void gobacktotransactionmenu() {
+    cout << "\n\nPress any key to go back to Transactions Menu...";
+    system("pause>0");
+    showtransactionmenu();
+}
+void gobacktomainmenu() {
+    cout << "\n\nPress any key to go back to main menu...";
+    system("pause>0");
+    showmainmenu();
+}
+short choiceontransactionmenu() {
+    short n;
+    do {
+        cout << "\nChoose what do you want to do?[1 to 4]?\n";
+        cin >> n;
+    } while (n < 1||n > 4);
+    return n;
+}
+void preformoperationontransmenu(short n) {
+    switch (n)
+    {
+    case 1:
+        system("cls");
+        showdeposcreen();
+        gobacktotransactionmenu();
+            break;
+    case 2:
+        system("cls");
+        showwithdrawscreen();
+        gobacktotransactionmenu();
+        break;
+    case 3:
+        system("cls");
+        showtotalbalancesscreen();
+        gobacktotransactionmenu();
+        break;
+    case 4:
+        system("cls");
+        gobacktomainmenu();
+    default:
+        break;
+    }
+}
+void showtransactionmenu() {
+    system("cls");
+    cout << "==============================================\n";
+    cout << "\t\Transaction menu screen\n";
+    cout << "==============================================\n";
+    cout << "\t[1] Deposit\n";
+    cout << "\t[2] WithDraw\n";
+    cout << "\t[3] Total Balances\n";
+    cout << "\t[4] Main Menu\n";
+    cout << "==============================================";
+    preformoperationontransmenu(choiceontransactionmenu());
+}
 
 void showmainmenu() {
     system("cls");
@@ -279,7 +435,8 @@ void showmainmenu() {
     cout << "\t[3] Delete Client\n";
     cout << "\t[4] Update Client Info\n";
     cout << "\t[5] Find Client\n";
-    cout << "\t[6] Exit\n";
+    cout << "\t[6] Transactions\n";
+    cout << "\t[7] Exit\n";
     cout << "==========================================\n";
 }
 
@@ -290,7 +447,7 @@ void allproject() {
 
     do {
         showmainmenu();
-        cout << "Choose an option [1 to 6]: ";
+        cout << "Choose an option [1 to 7]: ";
         cin >> n;
         string AC;
 
@@ -298,21 +455,29 @@ void allproject() {
         case 1:
             system("cls");
             showallclients(vcl);
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
             break;
         case 2:
             system("cls");
             printaddclients();
             addclients(vcl);
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
             break;
         case 3:
             system("cls");
             printdeletescreen();
             deleteclientbyaccnum(vcl);
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
             break;
         case 4:
             system("cls");
             printupdatescreen();
             updateclientdata(vcl);
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
             break;
         case 5:
             system("cls");
@@ -323,16 +488,20 @@ void allproject() {
             else {
                 cout << "\nClient with Account Number (" << AC << ") is not found!\n";
             }
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
             break;
         case 6:
+            showtransactionmenu();
+            break;
+        case 7:
             cout << "Exiting the program. Goodbye!\n";
             return;
         default:
             cout << "Invalid input. Try again.\n";
             break;
         }
-        cout << "\nPress any key to return to the main menu...\n";
-        system("pause");
+      
         vcl = clientsfromfile(clientfilename);
     } while (true);
 }
