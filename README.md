@@ -29,7 +29,7 @@ git clone https://github.com/Mazen-Eltelbany/Client-Account-Manager.git
 2-**Navigate to the project:**
 
 ```bash
-1-cd Client-Account-Manager
+cd Client-Account-Manager
 ```
 
 3- **Compile:**
@@ -37,7 +37,7 @@ git clone https://github.com/Mazen-Eltelbany/Client-Account-Manager.git
 <a href="https://youtu.be/GxFiUEO_3zM">The Installation guide</a>
 
 ```bash
-g++ Client-Account-Manager -o CAM
+g++ Client-Account-Manager.cpp -o CAM
 ```
 
 4- **Run:**
