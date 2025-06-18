@@ -13,7 +13,7 @@ typedef double db;
 
 using namespace std;
 
-const string clientfilename = "cli.txt";
+const string clientfilename = "clients.txt";
 
 int random(int from, int to) {
     return rand() % (to - from + 1) + from;

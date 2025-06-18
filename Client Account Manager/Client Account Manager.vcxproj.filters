@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client Account Manager.cpp">
+    <ClCompile Include="..\Client-Account-Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,3 +1,3 @@
-﻿  Client Account Manager.cpp
-D:\Visual stodio\my self learning project\my self learning project\Client Account Manager\Client Account Manager\Client Account Manager.cpp(56,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Client Account Manager.vcxproj -> D:\Visual stodio\my self learning project\my self learning project\Client Account Manager\x64\Debug\Client Account Manager.exe
+﻿  Client-Account-Manager.cpp
+D:\reprository\Client-Account-Manager\Client-Account-Manager.cpp(56,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Client Account Manager.vcxproj -> D:\reprository\Client-Account-Manager\x64\Debug\Client Account Manager.exe
