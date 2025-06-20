@@ -4,6 +4,7 @@
 
 ## 🚀 Features
 
+- 👤Admin/user login with permissions(New Feature)
 - 📄 View all client accounts with detailed info
 - ➕ Add new clients with account data
 - 🔄 Update existing client details
