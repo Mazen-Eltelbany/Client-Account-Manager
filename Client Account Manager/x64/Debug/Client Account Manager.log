@@ -1,6 +1,6 @@
 ﻿  Client-Account-Manager.cpp
 D:\reprository\Client-Account-Manager\Client-Account-Manager.cpp(101,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\reprository\Client-Account-Manager\Client-Account-Manager.cpp(849,13): warning C4129: 'T': unrecognized character escape sequence
 D:\reprository\Client-Account-Manager\Client-Account-Manager.cpp(576,1): warning C4715: 'depooperation': not all control paths return a value
 D:\reprository\Client-Account-Manager\Client-Account-Manager.cpp(608,1): warning C4715: 'withdrawoperation': not all control paths return a value
+  LINK : D:\reprository\Client-Account-Manager\x64\Debug\Client Account Manager.exe not found or not built by the last incremental link; performing full link
   Client Account Manager.vcxproj -> D:\reprository\Client-Account-Manager\x64\Debug\Client Account Manager.exe

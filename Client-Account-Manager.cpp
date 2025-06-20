@@ -846,7 +846,7 @@ void showtransactionmenu() {
 		return;
     }
     cout << "==============================================\n";
-    cout << "\t\Transaction menu screen\n";
+    cout << "\t\tTransaction menu screen\n";
     cout << "==============================================\n";
     cout << "\t[1] Deposit\n";
     cout << "\t[2] WithDraw\n";
